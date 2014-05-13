@@ -9,18 +9,31 @@
 /* Begin PBXBuildFile section */
 		6BEA91BD19219B7800EB45AC /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6BEA91BC19219B7800EB45AC /* main.cpp */; };
 		6BEA91BF19219B7800EB45AC /* denovel.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6BEA91BE19219B7800EB45AC /* denovel.1 */; };
+		6BEA91C91922BEAA00EB45AC /* novel_compressed in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6BEA91C619219EB800EB45AC /* novel_compressed */; };
+		6BEA91CA1922BEAA00EB45AC /* novel_compressed2 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6BEA91C71922BD9400EB45AC /* novel_compressed2 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		6BEA91B719219B7700EB45AC /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = /usr/share/man/man1/;
+			dstPath = /usr/share/man/man1;
 			dstSubfolderSpec = 0;
 			files = (
 				6BEA91BF19219B7800EB45AC /* denovel.1 in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 1;
+		};
+		6BEA91C81922BE9F00EB45AC /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 16;
+			files = (
+				6BEA91C91922BEAA00EB45AC /* novel_compressed in CopyFiles */,
+				6BEA91CA1922BEAA00EB45AC /* novel_compressed2 in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
@@ -29,6 +42,7 @@
 		6BEA91BC19219B7800EB45AC /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		6BEA91BE19219B7800EB45AC /* denovel.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = denovel.1; sourceTree = "<group>"; };
 		6BEA91C619219EB800EB45AC /* novel_compressed */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = novel_compressed; sourceTree = "<group>"; };
+		6BEA91C71922BD9400EB45AC /* novel_compressed2 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = novel_compressed2; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +86,7 @@
 			isa = PBXGroup;
 			children = (
 				6BEA91C619219EB800EB45AC /* novel_compressed */,
+				6BEA91C71922BD9400EB45AC /* novel_compressed2 */,
 			);
 			name = data;
 			sourceTree = "<group>";
@@ -86,6 +101,7 @@
 				6BEA91B519219B7700EB45AC /* Sources */,
 				6BEA91B619219B7700EB45AC /* Frameworks */,
 				6BEA91B719219B7700EB45AC /* CopyFiles */,
+				6BEA91C81922BE9F00EB45AC /* CopyFiles */,
 			);
 			buildRules = (
 			);

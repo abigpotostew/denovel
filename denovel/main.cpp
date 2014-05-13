@@ -16,25 +16,6 @@
 
 typedef std::vector<std::string> dictionary;
 
-char* read_file (const char* path){
-    std::ifstream file (path);
-    if (file){
-        file.seekg (0, file.end);
-        long long length = file.tellg();
-        file.seekg (0, file.beg);
-        
-        char* buffer = new char[length];
-        file.read (buffer,length);
-        
-        if (file){
-            return buffer;
-        }
-    }
-    std::cerr << "Error reading file." << std::endl;
-    exit(EXIT_FAILURE);
-    return 0;
-}
-
 void parse_dict(std::ifstream& file, dictionary& dict){
     int dict_length;
     std::string line;
@@ -46,83 +27,79 @@ void parse_dict(std::ifstream& file, dictionary& dict){
     }
 }
 
-bool isNumber(char* token){
-    return *token>0 && *token < 108;
+bool is_number(char token){
+    return token>='0' && token <= '9';
+}
+
+void split(std::string& line, std::vector<std::string>& token_buff){
+    std::istringstream iss(line);
+    copy(std::istream_iterator<std::string>(iss),
+         std::istream_iterator<std::string>(),
+         std::back_inserter<std::vector<std::string> >(token_buff));
 }
 
 void decompress(dictionary& d, std::ifstream& file, std::string& output){
-    std::string line, token;
-    std::string word;
-    char separator = '\0';
-    bool has_new_line = true;
+    std::string line;
     while (std::getline (file, line)){
         std::vector<std::string> tokens;
-        std::istringstream iss(line);
-        copy(std::istream_iterator<std::string>(iss),
-             std::istream_iterator<std::string>(),
-             std::back_inserter<std::vector<std::string> >(tokens));
+        split(line,tokens);
+        bool has_new_line = true;
         for (auto itor=tokens.begin(); itor!=tokens.end(); ++itor) {
-        token = *itor;
-        
-        int i=0;
-        while (i<token.length()){
-            // Capture up to a non numerical character
-            while (token[i] >= '0' && token[i] <= '9') ++i;
-            // convert a number index to word
-            if (i>0){
-                int word_id = atoi(token.substr(0,i).c_str());
-                word = d[word_id]; //copy the word
-            }
-            bool needs_space = true;
-            //convert special character to output
-            if (i < token.length()){
-                char operating = token[i];
-                ++i;
-                switch (operating){
-                    case '^': // print word Uppercase
-                        if (word[0] >= 'a') word[0] -= 32; break;
-                    case '!': // print UPPER case or !
-                        if (i==0) {
-                            output.push_back('!');
-                        }
-                        else{
-                            for (int i=0; i<word.size();++i)
-                                if (word[i]<'a') word[i] += 32;
-                        }
-                        break;
-                    case '-': // hyphenate previous and next word
-                        separator = '-';
-                        break;
-                    case '.':
-                    case ',':
-                    case '?':
-                    case ';':
-                    case ':':
-                        output.push_back(operating);
-                        needs_space = false;
-                        break;
-                    case 'R':
-                    case 'r':
-                        output.push_back('\n');
-                        has_new_line = true;
-                        needs_space = false;
-                        break;
-                    case 'E':
-                    case 'e':
-                        return;
-                    default:
-                        continue;
+            std::string token = *itor;
+            int current_char=0;
+            std::string word;
+            char separator = 0;
+            while (current_char<token.length()){
+                // Capture up to a non numerical character
+                while (is_number(token[current_char])) ++current_char;
+                // convert a number index to word
+                if (current_char>0){
+                    int word_id = atoi(token.substr(0,current_char).c_str());
+                    word = d[word_id]; //copy the word
+                    separator = ' ';
+                }
+                //convert special character to output
+                if (current_char < token.length()){
+                    char operator_token = token[current_char];
+                    ++current_char;
+                    switch (operator_token){
+                        case '^': // print word Uppercase
+                            word[0] -= 32;
+                            break;
+                        case '!': // print UPPER case or !
+                            if (current_char==1) {
+                                output.push_back('!');
+                            }
+                            else{
+                                for (int i=0; i<word.size();++i)
+                                    word[i] -= 32;
+                            }
+                            break;
+                        case '-': // hyphenate previous and current word
+                            has_new_line = true;
+                        case '.': case ',': case '?': case ';': case ':':
+                            separator = operator_token;
+                            break;
+                        case 'R': case 'r':
+                            separator = '\n';
+                            has_new_line = true;
+                            break;
+                        case 'E': case 'e':
+                            return;
+                        default:
+                            continue;
+                    }
+                }
+                if ( separator && ((has_new_line && separator != ' ') || !has_new_line) ) {
+                    output.push_back(separator);
+                    separator = 0;
+                }
+                if (word.length()>0) {
+                    output.append(word);
+                    word.clear();
+                    has_new_line = false;
                 }
             }
-            if (separator){
-                output.push_back(separator);
-                separator = 0;
-            } else if (!has_new_line && needs_space){
-                output.push_back(' ');
-            }
-            output.append(word);
-            word.clear();
-        }
         }
     }
 }
@@ -131,6 +108,9 @@ int main(int argc, const char * argv[])
 {
     std::string compressed_file_path = "novel_compressed";
     std::ifstream file( compressed_file_path );
+    if (!file){
+        return EXIT_FAILURE;
+    }
     dictionary my_dict;
     parse_dict(file, my_dict);
     std::string* decompressed = new std::string();
