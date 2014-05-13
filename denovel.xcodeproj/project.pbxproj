@@ -28,6 +28,7 @@
 		6BEA91B919219B7800EB45AC /* denovel */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = denovel; sourceTree = BUILT_PRODUCTS_DIR; };
 		6BEA91BC19219B7800EB45AC /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		6BEA91BE19219B7800EB45AC /* denovel.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = denovel.1; sourceTree = "<group>"; };
+		6BEA91C619219EB800EB45AC /* novel_compressed */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = novel_compressed; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -44,6 +45,7 @@
 		6BEA91B019219B7600EB45AC = {
 			isa = PBXGroup;
 			children = (
+				6BEA91C519219EA300EB45AC /* data */,
 				6BEA91BB19219B7800EB45AC /* denovel */,
 				6BEA91BA19219B7800EB45AC /* Products */,
 			);
@@ -64,6 +66,14 @@
 				6BEA91BE19219B7800EB45AC /* denovel.1 */,
 			);
 			path = denovel;
+			sourceTree = "<group>";
+		};
+		6BEA91C519219EA300EB45AC /* data */ = {
+			isa = PBXGroup;
+			children = (
+				6BEA91C619219EB800EB45AC /* novel_compressed */,
+			);
+			name = data;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
