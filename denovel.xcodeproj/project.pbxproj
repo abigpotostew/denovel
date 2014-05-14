@@ -7,7 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6BEA91BD19219B7800EB45AC /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6BEA91BC19219B7800EB45AC /* main.cpp */; };
+		6B67656B19241B2C00CBF787 /* denovel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6B67656919241B2C00CBF787 /* denovel.cpp */; };
+		6B67656D19241D2C00CBF787 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6B67656C19241D2C00CBF787 /* main.cpp */; };
+		6BEA91BD19219B7800EB45AC /* main_decompress.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6BEA91BC19219B7800EB45AC /* main_decompress.cpp */; };
 		6BEA91BF19219B7800EB45AC /* denovel.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6BEA91BE19219B7800EB45AC /* denovel.1 */; };
 		6BEA91C91922BEAA00EB45AC /* novel_compressed in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6BEA91C619219EB800EB45AC /* novel_compressed */; };
 		6BEA91CA1922BEAA00EB45AC /* novel_compressed2 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6BEA91C71922BD9400EB45AC /* novel_compressed2 */; };
@@ -38,8 +40,11 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		6B67656919241B2C00CBF787 /* denovel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = denovel.cpp; sourceTree = "<group>"; };
+		6B67656A19241B2C00CBF787 /* denovel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = denovel.h; sourceTree = "<group>"; };
+		6B67656C19241D2C00CBF787 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		6BEA91B919219B7800EB45AC /* denovel */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = denovel; sourceTree = BUILT_PRODUCTS_DIR; };
-		6BEA91BC19219B7800EB45AC /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		6BEA91BC19219B7800EB45AC /* main_decompress.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main_decompress.cpp; sourceTree = "<group>"; };
 		6BEA91BE19219B7800EB45AC /* denovel.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = denovel.1; sourceTree = "<group>"; };
 		6BEA91C619219EB800EB45AC /* novel_compressed */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = novel_compressed; sourceTree = "<group>"; };
 		6BEA91C71922BD9400EB45AC /* novel_compressed2 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = novel_compressed2; sourceTree = "<group>"; };
@@ -76,8 +81,11 @@
 		6BEA91BB19219B7800EB45AC /* denovel */ = {
 			isa = PBXGroup;
 			children = (
-				6BEA91BC19219B7800EB45AC /* main.cpp */,
+				6BEA91BC19219B7800EB45AC /* main_decompress.cpp */,
+				6B67656C19241D2C00CBF787 /* main.cpp */,
 				6BEA91BE19219B7800EB45AC /* denovel.1 */,
+				6B67656919241B2C00CBF787 /* denovel.cpp */,
+				6B67656A19241B2C00CBF787 /* denovel.h */,
 			);
 			path = denovel;
 			sourceTree = "<group>";
@@ -143,7 +151,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6BEA91BD19219B7800EB45AC /* main.cpp in Sources */,
+				6BEA91BD19219B7800EB45AC /* main_decompress.cpp in Sources */,
+				6B67656B19241B2C00CBF787 /* denovel.cpp in Sources */,
+				6B67656D19241D2C00CBF787 /* main.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -253,6 +263,7 @@
 				6BEA91C419219B7800EB45AC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
