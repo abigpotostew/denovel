@@ -10,13 +10,11 @@
 #define __denovel__denovel__
 
 #include <vector>
-#include <fstream> //read only file
+#include <iostream>
 
 typedef std::vector<std::string> words_list;
 
-void parse_dict(std::ifstream& file, words_list& dict);
-
-void decompress (words_list& d, std::ifstream& file, std::string& output);
+void decompress (std::istream& instream, std::ostream& outstream);
 
 void compress (std::istream& instream, std::ostream& outstream);
 

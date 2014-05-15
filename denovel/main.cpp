@@ -7,7 +7,14 @@ using namespace std;
 
 int main (int argc, const char * argv[])
 {
-    compress( cin, cout );
+    if (argc == 2 && strcmp(argv[1], "-d")==0)
+        decompress( cin, cout );
+    else if (argc == 1)
+        compress( cin, cout );
+    else{
+        cerr << "Usage: denovel [-d]" << endl;
+        return 1;
+    }
     return 0;
 }
 
