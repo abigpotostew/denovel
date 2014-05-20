@@ -47,8 +47,8 @@ void decompress (ifstream& instream, ofstream& outstream){
     words_list* dict = new words_list();
     parse_dict(instream, *dict);
     string* line = new string();
+    vector<string>* tokens = new vector<string>();
     while (getline (instream, *line)){ // read line by line, split by '\n'
-        vector<string>* tokens = new vector<string>();
         split(*line, *tokens); // split line by whitespace into token groups
         bool has_new_line = true;
         for (auto itor = tokens->begin(); itor != tokens->end(); ++itor) {
@@ -113,7 +113,7 @@ void decompress (ifstream& instream, ofstream& outstream){
             }
         }
         line->clear();
-        delete tokens;
+        tokens->clear();
     }
     delete line;
     delete dict;
