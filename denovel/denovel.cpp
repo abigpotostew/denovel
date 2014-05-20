@@ -8,9 +8,9 @@
 
 #include "denovel.h"
 
-#include <iostream> //cin
+#include <iostream> //cerr
+#include <fstream> // file io
 #include <sstream> //convert string -> int
-//#include <fstream> //read only file
 #include <cstdlib> //atoi
 #include <algorithm> //split
 #include <iterator> //split
@@ -18,7 +18,10 @@
 
 using namespace std;
 
-void parse_dict(istream& instream, words_list& dict){
+typedef void (*denovel_func)(std::ifstream& instream, std::ofstream& outstream);
+typedef std::vector<std::string> words_list;
+
+void parse_dict(ifstream& instream, words_list& dict){
     int dict_length;
     string line;
     getline(instream, line);
@@ -29,18 +32,18 @@ void parse_dict(istream& instream, words_list& dict){
     }
 }
 
-bool is_number (char token){
+static bool is_number (char token){
     return token>='0' && token <= '9';
 }
 
-void split (string& line, vector<string>& token_buff){
+static void split (string& line, vector<string>& token_buff){
     istringstream iss(line);
     copy(istream_iterator<string>(iss),
          istream_iterator<string>(),
          back_inserter<vector<string> >(token_buff));
 }
 
-void decompress (istream& instream, ostream& outstream){
+void decompress (ifstream& instream, ofstream& outstream){
     words_list* dict = new words_list();
     parse_dict(instream, *dict);
     string* line = new string();
@@ -121,24 +124,11 @@ bool is_upper ( char c ){
     return c < 'a';
 }
 
-bool is_upper ( string& word ){
-    return is_upper (word[0]);
-}
-
-// returns true if only the first letter of the string is capitalized
-bool is_capitalized ( string& word ){
-    if ( word.length() > 0 && is_upper (word) ){
-        if (word.length() == 1 || is_upper (word[1]) )
-            return true;
-    }
-    return false;
-}
-
 bool is_letter ( char c ){
     return ( c >= 'A' && c <= 'Z' ) || ( c >= 'a' && c <= 'z' );
 }
 
-void compress (std::istream& instream, std::ostream& outstream){
+void compress (ifstream& instream, ofstream& outstream){
     typedef unordered_map<string, size_t> dict_map;
     typedef pair<string,size_t> word_id_pair;
     typedef pair<dict_map::iterator, bool> insert_result;
@@ -228,4 +218,25 @@ void compress (std::istream& instream, std::ostream& outstream){
     delete dictionary;
     
     flush(outstream);
+}
+
+static int call(denovel_func func, const char* infile, const char* outfile){
+    ifstream instream (infile);
+    ofstream outstream (outfile);
+    if (instream.is_open() && outstream.is_open()) {
+        func (instream, outstream);
+    }else{
+        return 1;
+    }
+    instream.close();
+    outstream.close();
+    return 0;
+}
+
+int decompress (const char* infile, const char* outfile){
+    return call ( decompress, infile, outfile );
+}
+
+int compress (const char* infile, const char* outfile){
+    return call ( compress, infile, outfile );
 }

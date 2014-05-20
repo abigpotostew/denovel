@@ -12,10 +12,8 @@
 #include <vector>
 #include <iostream>
 
-typedef std::vector<std::string> words_list;
+int decompress (const char* infile, const char* outfile);
 
-void decompress (std::istream& instream, std::ostream& outstream);
-
-void compress (std::istream& instream, std::ostream& outstream);
+int compress (const char* infile, const char* outfile);
 
 #endif /* defined(__denovel__denovel__) */

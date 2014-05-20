@@ -5,16 +5,22 @@ using namespace std;
 
 #include "denovel.h"
 
+#define DIE_M(msg) cerr << msg << endl; return EXIT_FAILURE
+#define DIE() DIE_M("Usage: denovel -c|-d infile outfile")
+
 int main (int argc, const char * argv[])
 {
-    if (argc == 2 && strcmp(argv[1], "-d")==0)
-        decompress( cin, cout );
-    else if (argc == 1)
-        compress( cin, cout );
-    else{
-        cerr << "Usage: denovel [-d]" << endl;
-        return 1;
+    int (*algorithm_ptr)(const char*, const char*) = nullptr;
+    if (argc == 4){
+        if (strcmp(argv[1], "-d")==0) {
+            algorithm_ptr = decompress;
+        }else if (strcmp(argv[1], "-c") == 0){
+            algorithm_ptr = compress;
+        }else{
+            DIE();
+        }
+        return algorithm_ptr ( argv[2], argv[3] );
     }
-    return 0;
+    DIE();
 }
 
