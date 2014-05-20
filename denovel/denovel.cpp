@@ -201,7 +201,8 @@ void compress (ifstream& instream, ofstream& outstream){
                 compressed_buffer->push_back (' ');
             }
         }
-        compressed_buffer->append("R ");
+        if ( !instream.eof() )
+            compressed_buffer->append("R ");
         line_words->clear();
     }
     //print dictionary count and words
